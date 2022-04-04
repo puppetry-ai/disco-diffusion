@@ -127,3 +127,19 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Other repositories
+AdaBins/
+CLIP/
+disco-diffusion/
+guided-diffusion/
+images_out/
+init_images
+latent-diffusion/
+MiDaS/
+models/
+pretrained/
+pytorch3d-lite/
+ResizeRight/
+taming-transformers/
+.idea/

@@ -1,0 +1,17 @@
+lpips
+datetime
+timm
+ftfy
+pytorch-lightning
+einops
+ipywidgets
+omegaconf>=2.0.0
+pytorch-lightning>=1.0.8
+torch-fidelity
+einops
+wandb
+elbo
+requests
+torch
+torchvision
+opencv-python
