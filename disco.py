@@ -2408,88 +2408,83 @@ for name, param in model.named_parameters():
 if model_config['use_fp16']:
     model.convert_to_fp16()
 
-gc.collect()
-torch.cuda.empty_cache()
-try:
-    do_run()
-except KeyboardInterrupt:
-    pass
-finally:
-    print('Seed used:', seed)
-    gc.collect()
-    torch.cuda.empty_cache()
+if __name__ == "__main__":
+    try:
+        do_run()
+    except KeyboardInterrupt:
+        pass
 
-"""# 5. Create the video"""
+    """# 5. Create the video"""
 
-# @title ### **Create video**
-# @markdown Video file will save in the same folder as your images.
+    # @title ### **Create video**
+    # @markdown Video file will save in the same folder as your images.
 
-skip_video_for_run_all = True  # @param {type: 'boolean'}
+    skip_video_for_run_all = True  # @param {type: 'boolean'}
 
-if skip_video_for_run_all == True:
-    print('Skipping video creation, uncheck skip_video_for_run_all if you want to run it')
+    if skip_video_for_run_all == True:
+        print('Skipping video creation, uncheck skip_video_for_run_all if you want to run it')
 
-else:
-    # import subprocess in case this cell is run without the above cells
-    import subprocess
-    from base64 import b64encode
-
-    latest_run = batchNum
-
-    folder = batch_name  # @param
-    run = latest_run  # @param
-    final_frame = 'final_frame'
-
-    init_frame = 1  # @param {type:"number"} This is the frame where the video will start
-    last_frame = final_frame  # @param {type:"number"} You can change i to the number of the last frame you want to generate. It will raise an error if that number of frames does not exist.
-    fps = 12  # @param {type:"number"}
-    # view_video_in_cell = True #@param {type: 'boolean'}
-
-    frames = []
-    # tqdm.write('Generating video...')
-
-    if last_frame == 'final_frame':
-        last_frame = len(glob(batchFolder + f"/{folder}({run})_*.png"))
-        print(f'Total frames: {last_frame}')
-
-    image_path = f"{outDirPath}/{folder}/{folder}({run})_%04d.png"
-    filepath = f"{outDirPath}/{folder}/{folder}({run}).mp4"
-
-    cmd = [
-        'ffmpeg',
-        '-y',
-        '-vcodec',
-        'png',
-        '-r',
-        str(fps),
-        '-start_number',
-        str(init_frame),
-        '-i',
-        image_path,
-        '-frames:v',
-        str(last_frame + 1),
-        '-c:v',
-        'libx264',
-        '-vf',
-        f'fps={fps}',
-        '-pix_fmt',
-        'yuv420p',
-        '-crf',
-        '17',
-        '-preset',
-        'veryslow',
-        filepath
-    ]
-
-    process = subprocess.Popen(cmd, cwd=f'{batchFolder}', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    stdout, stderr = process.communicate()
-    if process.returncode != 0:
-        print(stderr)
-        raise RuntimeError(stderr)
     else:
-        print("The video is ready and saved to the images folder")
+        # import subprocess in case this cell is run without the above cells
+        import subprocess
+        from base64 import b64encode
 
-    # if view_video_in_cell:
-    #     mp4 = open(filepath,'rb').read()
-    #     data_url = "data:video/mp4;base64," + b64encode(mp4).decode()
-    #     display.HTML(f'<video width=400 controls><source src="{data_url}" type="video/mp4"></video>')
+        latest_run = batchNum
+
+        folder = batch_name  # @param
+        run = latest_run  # @param
+        final_frame = 'final_frame'
+
+        init_frame = 1  # @param {type:"number"} This is the frame where the video will start
+        last_frame = final_frame  # @param {type:"number"} You can change i to the number of the last frame you want to generate. It will raise an error if that number of frames does not exist.
+        fps = 12  # @param {type:"number"}
+        # view_video_in_cell = True #@param {type: 'boolean'}
+
+        frames = []
+        # tqdm.write('Generating video...')
+
+        if last_frame == 'final_frame':
+            last_frame = len(glob(batchFolder + f"/{folder}({run})_*.png"))
+            print(f'Total frames: {last_frame}')
+
+        image_path = f"{outDirPath}/{folder}/{folder}({run})_%04d.png"
+        filepath = f"{outDirPath}/{folder}/{folder}({run}).mp4"
+
+        cmd = [
+            'ffmpeg',
+            '-y',
+            '-vcodec',
+            'png',
+            '-r',
+            str(fps),
+            '-start_number',
+            str(init_frame),
+            '-i',
+            image_path,
+            '-frames:v',
+            str(last_frame + 1),
+            '-c:v',
+            'libx264',
+            '-vf',
+            f'fps={fps}',
+            '-pix_fmt',
+            'yuv420p',
+            '-crf',
+            '17',
+            '-preset',
+            'veryslow',
+            filepath
+        ]
+
+        process = subprocess.Popen(cmd, cwd=f'{batchFolder}', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        stdout, stderr = process.communicate()
+        if process.returncode != 0:
+            print(stderr)
+            raise RuntimeError(stderr)
+        else:
+            print("The video is ready and saved to the images folder")
+
+        # if view_video_in_cell:
+        #     mp4 = open(filepath,'rb').read()
+        #     data_url = "data:video/mp4;base64," + b64encode(mp4).decode()
+        #     display.HTML(f'<video width=400 controls><source src="{data_url}" type="video/mp4"></video>')
