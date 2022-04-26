@@ -1211,7 +1211,7 @@ def do_run():
             batchBar.n = i
             batchBar.refresh()
           print('')
-          display.display(image_display)
+          #display.display(image_display)
           gc.collect()
           torch.cuda.empty_cache()
           cur_t = diffusion.num_timesteps - skip_steps - 1
@@ -1580,7 +1580,7 @@ class SecondaryDiffusionImageNet2(nn.Module):
 #@markdown ####**Models Settings:**
 diffusion_model = "512x512_diffusion_uncond_finetune_008100" #@param ["256x256_diffusion_uncond", "512x512_diffusion_uncond_finetune_008100"]
 use_secondary_model = True #@param {type: 'boolean'}
-diffusion_sampling_mode = 'ddim' #@param ['plms','ddim']  
+diffusion_sampling_mode = 'plms' #@param ['plms','ddim']
 
 
 use_checkpoint = True #@param {type: 'boolean'}
@@ -1730,7 +1730,7 @@ lpips_model = lpips.LPIPS(net='vgg').to(device)
 """# 3. Settings"""
 
 #@markdown ####**Basic Settings:**
-batch_name = 'Frankv6x5' #@param{type: 'string'}
+batch_name = 'FrankvMax_Res' #@param{type: 'string'}
 steps = 500 #@param [25,50,100,150,250,500,1000]{type: 'raw', allow-input: true}
 width_height = [3072+64, 1680]#@param{type: 'raw'}
 clip_guidance_scale = 5000 #@param{type: 'number'}
@@ -2127,7 +2127,7 @@ else:
 
 #@markdown ####**Saving:**
 
-intermediate_saves = 0#@param{type: 'raw'}
+intermediate_saves = 50#@param{type: 'raw'}
 intermediates_in_subfolder = True #@param{type: 'boolean'}
 #@markdown Intermediate steps will save a copy at your specified intervals. You can either format it as a single integer or a list of specific steps 
 
@@ -2160,7 +2160,7 @@ if intermediate_saves and intermediates_in_subfolder is True:
 perlin_init = False  #@param{type: 'boolean'}
 perlin_mode = 'mixed' #@param ['mixed', 'color', 'gray']
 set_seed = 'random_seed' #@param{type: 'string'}
-eta = 0.8#@param{type: 'number'}
+eta = 1.0#@param{type: 'number'}
 clamp_grad = True #@param{type: 'boolean'}
 clamp_max = 0.05 #@param{type: 'number'}
 
