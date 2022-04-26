@@ -2224,9 +2224,7 @@ cut_icgray_p = "[0.2]*400+[0]*600"  # @param {type: 'string'}
 """
 
 text_prompts = {
-    0: [
-        "A beautiful painting of a singular lighthouse, shining its light across a tumultuous sea of blood by greg rutkowski and thomas kinkade, Trending on artstation.",
-        "yellow color scheme"],
+    0: ["Bruce lee magical illustration by Wynn Yarrow"],
     100: ["This set of prompts start at frame 100", "This prompt has weight five:5"],
 }
 
@@ -2414,12 +2412,14 @@ if __name__ == "__main__":
     except KeyboardInterrupt:
         pass
 
+    print(f"Run completed.")
+
     """# 5. Create the video"""
 
     # @title ### **Create video**
     # @markdown Video file will save in the same folder as your images.
 
-    skip_video_for_run_all = True  # @param {type: 'boolean'}
+    skip_video_for_run_all = False # @param {type: 'boolean'}
 
     if skip_video_for_run_all == True:
         print('Skipping video creation, uncheck skip_video_for_run_all if you want to run it')

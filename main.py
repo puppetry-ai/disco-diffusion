@@ -778,7 +778,7 @@ def do_run():
                     x_in_grad = torch.zeros_like(x_in)
                 for model_stat in model_stats:
                     for i in range(args.cutn_batches):
-                        t_int = int(t.item()) + 1  # errors on last step without +1, need to find source
+                        t_int = int(t.item()) + 1  # errors on last step withm,ut +1, need to find source
                         # when using SLIP Base model the dimensions need to be hard coded to avoid AttributeError: 'VisionTransformer' object has no attribute 'input_resolution'
                         try:
                             input_resolution = model_stat["clip_model"].visual.input_resolution
