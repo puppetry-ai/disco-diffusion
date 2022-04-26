@@ -1730,9 +1730,9 @@ lpips_model = lpips.LPIPS(net='vgg').to(device)
 """# 3. Settings"""
 
 #@markdown ####**Basic Settings:**
-batch_name = 'Bruce lee family life graphic novel detailed artistic' #@param{type: 'string'}
-steps = 250 #@param [25,50,100,150,250,500,1000]{type: 'raw', allow-input: true}
-width_height = [1280, 768]#@param{type: 'raw'}
+batch_name = 'Frankv6x5' #@param{type: 'string'}
+steps = 500 #@param [25,50,100,150,250,500,1000]{type: 'raw', allow-input: true}
+width_height = [3072, 1620]#@param{type: 'raw'}
 clip_guidance_scale = 5000 #@param{type: 'number'}
 tv_scale =  0#@param{type: 'number'}
 range_scale =   150#@param{type: 'number'}
@@ -2189,8 +2189,12 @@ cut_icgray_p = "[0.2]*400+[0]*600"#@param {type: 'string'}
 """
 
 text_prompts = {
-    0: ["A beautiful painting of a singular lighthouse, shining its light across a tumultuous sea of blood by greg rutkowski and thomas kinkade, Trending on artstation.", "yellow color scheme"],
-    100: ["This set of prompts start at frame 100","This prompt has weight five:5"],
+    0: ["Bruce lee family life graphic novel detailed artistic"],
+    1: ["Bruce lee wrecking crew movie poster"],
+    2: ["Bruce lee Sharon tate comicbook life"],
+    3: ["Bruce lee cowboy New Yorker illustrated sunset"],
+    4: ["Bruce lee married graphic novel"],
+    5: ["Bruce lee where’s Waldo illustrated"]
 }
 
 image_prompts = {
@@ -2385,7 +2389,7 @@ if __name__ == "__main__":
     # @title ### **Create video**
     #@markdown Video file will save in the same folder as your images.
 
-    skip_video_for_run_all = True #@param {type: 'boolean'}
+    skip_video_for_run_all = False #@param {type: 'boolean'}
 
     if skip_video_for_run_all == True:
       print('Skipping video creation, uncheck skip_video_for_run_all if you want to run it')
